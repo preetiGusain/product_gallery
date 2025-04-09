@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:product_gallery/features/home/home_page.dart';
+import 'package:product_gallery/features/products/ui/products_page.dart';
 
 void main() async {
   runApp(new MyApp());
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: ProductsPage(),
     );
   }
 }
