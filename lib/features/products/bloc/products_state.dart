@@ -1,6 +1,15 @@
 part of 'products_bloc.dart';
 
 @immutable
-sealed class ProductsState {}
+//builders
+abstract class ProductsState {}
 
-final class ProductsInitial extends ProductsState {}
+//listeners
+abstract class ProductsActionState extends ProductsState{}
+
+class ProductsInitial extends ProductsState {}
+
+class ProductsFetchingSuccessfulState extends ProductsState {
+  final List<ProductsUiModel> products;
+  ProductsFetchingSuccessfulState({required this.products});
+}
