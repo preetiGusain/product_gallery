@@ -19,6 +19,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
     ProductsInitialFetchEvent event,
     Emitter<ProductsState> emit,
   ) async {
+    emit(ProductFetchingLoadingState());
     List<ProductsUiModel> products = [];
     var client = http.Client();
     try {
@@ -44,6 +45,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
       print(response.body);
       emit(ProductsFetchingSuccessfulState(products: products));
     } catch (e) {
+      emit(ProductFetchingErrorState());
       log(e.toString());
       print("Error: $e");
     }
