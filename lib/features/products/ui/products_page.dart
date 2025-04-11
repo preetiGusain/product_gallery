@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:product_gallery/features/products/bloc/products_bloc.dart';
+import 'package:product_gallery/features/products/ui/products_detail_page.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
@@ -41,92 +42,103 @@ class _ProductsPageState extends State<ProductsPage> {
                 itemBuilder: (context, index) {
                   final product = successState.products[index];
 
-                  return Container(
-                    padding: const EdgeInsets.all(12),
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.15),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => ProductDetailsPage(product: product),
                         ),
-                      ],
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //Image
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.network(
-                            product.image,
-                            height: 80,
-                            width: 80,
-                            fit: BoxFit.cover,
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.15),
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
                           ),
-                        ),
+                        ],
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //Image
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.network(
+                              product.image,
+                              height: 80,
+                              width: 80,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
 
-                        const SizedBox(width: 16),
+                          const SizedBox(width: 16),
 
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              //Title
-                              Text(
-                                product.title,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              const SizedBox(height: 8),
-                              //Price
-                              Text(
-                                '\$${product.price.toStringAsFixed(2)}',
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.green,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 6),
-
-                              // Rating
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    size: 16,
-                                    color: Colors.orange,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                //Title
+                                Text(
+                                  product.title,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
                                   ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    product.rating.rate.toString(),
-                                    style: const TextStyle(fontSize: 13),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const SizedBox(height: 8),
+                                //Price
+                                Text(
+                                  '\$${product.price.toStringAsFixed(2)}',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  const SizedBox(width: 6),
-                                  Text(
-                                    '(${product.rating.count})',
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey,
+                                ),
+                                const SizedBox(height: 6),
+
+                                // Rating
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      size: 16,
+                                      color: Colors.orange,
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      product.rating.rate.toString(),
+                                      style: const TextStyle(fontSize: 13),
+                                    ),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      '(${product.rating.count})',
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },
